@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\Auth\LoginController as CustomerLoginControlle
 use App\Http\Controllers\Customer\Auth\RegisterController as CustomerRegisterController;
 use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\DeviceController as CustomerDeviceController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,9 +21,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     Route::middleware('auth:web')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+//        Route::get('/dashboard', function () {
+//            return view('admin.dashboard');
+//        })->name('dashboard');
+
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('customers', CustomerController::class);
         Route::resource('devices', DeviceController::class);
