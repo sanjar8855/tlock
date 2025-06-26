@@ -30,8 +30,8 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Shaxs tasdiqlandi. Endi qurilmangizni tasdiqlang.',
                 'token' => $token,
-                'customer' => $customer
-//                'user_devices' => $customer->devices()->pluck('imei') // Mijozning barcha IMEI raqamlari
+                'customer' => $customer,
+                'user_devices' => $customer->devices()->pluck('imei') // Mijozning barcha IMEI raqamlari
             ]);
         }
 
