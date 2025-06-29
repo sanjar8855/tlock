@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeviceLocation;
 use Illuminate\Http\Request;
 use App\Models\Device;
 
@@ -40,5 +41,31 @@ class DeviceController extends Controller
             'status' => $device->status,
             'management_status' => $managementStatus // <<< YANGI QO'SHILGAN MAYDON
         ]);
+    }
+
+    public function updateLocation(Request $request)
+    {
+        $validated = $request->validate([
+            'imei' => 'required|string|exists:devices,imei',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+        ]);
+
+        // Token orqali kirgan mijozni olish
+        $customer = $request->user();
+
+        // Qurilmani topish va u shu mijozga tegishli ekanligini tekshirish
+        $device = Device::where('imei', $validated['imei'])
+            ->where('customer_id', $customer->id)
+            ->firstOrFail(); // Agar topilmasa yoki tegishli bo'lmasa, 404 xato beradi
+
+        // Yangi joylashuvni bazaga saqlash
+        DeviceLocation::create([
+            'device_id' => $device->id,
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
+        ]);
+
+        return response()->json(['message' => 'Joylashuv muvaffaqiyatli saqlandi.']);
     }
 }

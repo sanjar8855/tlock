@@ -50,5 +50,18 @@ class DeviceController extends Controller
         // 5. Muvaffaqiyatli saqlangach, shaxsiy kabinetga qaytish
         return redirect()->route('customer.dashboard')->with('success', 'Yangi qurilma muvaffaqiyatli qo\'shildi!');
     }
+
+    public function show(Device $device)
+    {
+        // XAVFSIZLIK TEKSHIRUVI: Bu qurilma haqiqatan ham shu mijozniki ekanligini tekshirish
+        if (Auth::guard('customers')->id() !== $device->customer_id) {
+            abort(403, 'Bu amal uchun ruxsatingiz yo\'q');
+        }
+
+        // Qurilmaning joylashuv tarixini olish
+        $locations = $device->locations()->paginate(10);
+
+        return view('customer.devices.show', compact('device', 'locations'));
+    }
 }
 

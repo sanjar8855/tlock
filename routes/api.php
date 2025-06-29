@@ -13,4 +13,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/customer/verify-device', [AuthController::class, 'verifyDevice']);
     Route::post('/customer/logout', [AuthController::class, 'logout']);
     Route::post('/device/status', [DeviceController::class, 'getStatus']);
+    Route::post('/device/location', [DeviceController::class, 'updateLocation']);
+
 });

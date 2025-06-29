@@ -45,4 +45,9 @@ class Device extends Model
     {
         return $this->belongsTo(Company::class, 'managed_by_company_id');
     }
+
+    public function locations()
+    {
+        return $this->hasMany(DeviceLocation::class)->orderBy('created_at', 'desc');
+    }
 }

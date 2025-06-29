@@ -49,8 +49,7 @@ Route::name('customer.')->group(function () {
         Route::post('/logout', [CustomerLoginController::class, 'logout'])->name('logout');
 
         Route::post('/devices/{device}/change-status', [DashboardController::class, 'changeDeviceStatus'])->name('devices.changeStatus');
-        Route::get('/devices/create', [CustomerDeviceController::class, 'create'])->name('devices.create');
-        Route::post('/devices', [CustomerDeviceController::class, 'store'])->name('devices.store');
+        Route::resource('devices', CustomerDeviceController::class)->names('devices')->except(['index']);
     });
 });
 

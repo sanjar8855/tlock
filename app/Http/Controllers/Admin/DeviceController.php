@@ -59,9 +59,13 @@ class DeviceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Device $device)
     {
-        //
+        // GlobalScope tufayli faqat o'z kompaniyasining qurilmasini ko'ra oladi
+        // Qurilmaning joylashuv tarixini olish
+        $locations = $device->locations()->paginate(15);
+
+        return view('admin.devices.show', compact('device', 'locations'));
     }
 
     /**

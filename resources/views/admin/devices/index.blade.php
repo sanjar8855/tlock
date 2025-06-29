@@ -56,7 +56,8 @@
                                 <span class="badge badge-danger">Bloklangan</span>
                             @endif
                         </td>
-                        <td class="d-flex">
+                        <td class="d-flex flex-wrap">
+                            <a href="{{ route('admin.devices.show', $device->id) }}" class="btn btn-info btn-sm m-1">Ko'rish</a>
                             <a href="{{ route('admin.devices.edit', $device->id) }}"
                                class="btn btn-warning btn-sm mr-1">Tahrirlash</a>
 
@@ -74,7 +75,8 @@
                                 <form action="{{ route('admin.devices.release', $device->id) }}" method="POST"
                                       onsubmit="return confirm('Qurilmani kompaniya boshqaruvidan chiqarmoqchimisiz?');">
                                     @csrf
-                                    <button type="submit" class="btn btn-info btn-sm mr-1">Shartnomani yakunlash</button>
+                                    <button type="submit" class="btn btn-info btn-sm mr-1">Shartnomani yakunlash
+                                    </button>
                                 </form>
                             @endif
 
